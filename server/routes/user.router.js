@@ -1,9 +1,9 @@
 const express = require('express');
 const encryptLib = require('../modules/encryption');
-const Person = require('../models/Person');
 const userStrategy = require('../strategies/sql.localstrategy');
 const pool = require('../modules/pool.js');
 const router = express.Router();
+
 
 // Handles Ajax request for user information if user is authenticated
 router.get('/', (req, res) => {
@@ -21,16 +21,16 @@ router.get('/', (req, res) => {
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
 router.post('/register', (req, res, next) => {
-  const username = req.body.username;
+  const name = req.body.name;
   const password = encryptLib.encryptPassword(req.body.password);
 
   var saveUser = {
-    username: req.body.username,
+    name: req.body.name,
     password: encryptLib.encryptPassword(req.body.password)
   };
   console.log('new user:', saveUser);
-  pool.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id',
-    [saveUser.username, saveUser.password], (err, result) => {
+  pool.query('INSERT INTO users (name, password) VALUES ($1, $2) RETURNING id',
+    [saveUser.name, saveUser.password], (err, result) => {
       if (err) {
         console.log("Error inserting data: ", err);
         res.sendStatus(500);
@@ -54,5 +54,60 @@ router.get('/logout', (req, res) => {
   req.logout();
   res.sendStatus(200);
 });
+
+//For getting employees
+router.get('/employees', function (req, res) {
+  console.log('in getEmployees');
+  if(req.isAuthenticated()) {
+   pool.connect(function (errorConnectingToDatabase, client, done) {
+       if (errorConnectingToDatabase) {
+           console.log('error', errorConnectingToDatabase);
+           res.sendStatus(500);
+       } else {
+           client.query(`SELECT * FROM users WHERE users.role='employee'`, function (errorMakingDatabaseQuery, result) {
+               done();
+               if (errorMakingDatabaseQuery) {
+                   console.log('error', errorMakingDatabaseQuery);
+                   res.sendStatus(500);
+               } else {
+                   res.send(result.rows);
+               }
+           });
+       }
+   });
+  } else{
+   // failure best handled on the server. do redirect here.
+   console.log('not logged in');
+   // should probably be res.sendStatus(403) and handled client-side, esp if this is an AJAX request (which is likely with AngularJS)
+   res.send(false);
+ }
+
+ });
+//Creating new shift
+router.post('/newShift', function (req, res) {
+    
+  console.log('in newShift route');
+  pool.connect(function (errorConnectingToDatabase, client, done) {
+      if (errorConnectingToDatabase) {
+          console.log('error', errorConnectingToDatabase);
+          res.sendStatus(500);
+
+      } else {
+          client.query(`INSERT INTO shifts ("manager_id", "start_time", "end_time", "created_at")
+          VALUES ($1, $2, $3, $4);`, [req.user.id, req.body.start_time, req.body.end_time, req.body.current_datetime],
+              function (errorMakingDatabaseQuery, result) {
+                  done();
+                  if (errorMakingDatabaseQuery) {
+                      console.log('error', errorMakingDatabaseQuery);
+                      res.sendStatus(500);
+
+                  } else {
+                      res.sendStatus(201);
+                  }
+              })
+      }
+  })
+});
+
 
 module.exports = router;

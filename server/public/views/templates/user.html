@@ -3,4 +3,37 @@
 
     <h1 id="welcome" class="lead">Welcome, {{vm.userObject.userName}}!</h1>
     <button class="btn btn-default" ng-click="vm.userService.logout()">Log Out</button>
+
+<div class="container">
+    <div layout = "row">
+    <div class = "managerPageColumns">
+            <h3>Employees:</h3>
+    <ul ng-repeat = "employee in vm.userService.employeeArray">
+        <li> {{employee.name}} {{employee.phone}} {{employee.email}} </li>
+    </ul>
+    </div>
+
+    <div class = "managerPageColumns">
+            <h3> Create a shift: </h3>
+           <label>Start Day/Time: </label> <input type="datetime-local" ng-model=vm.newShift.start_time>
+           <br>
+            <label>End Day/Time:</label> <input type="datetime-local" ng-model="vm.newShift.end_time">
+            <br><br>
+            <md-button class="md-raised md-primary" ng-click = "vm.addShift(vm.newShift)">Submit</md-button>
+
+    </div>
+
+    <div class = "managerPageColumns">
+            <h3> Assign a shift: </h3>
+            <select name="createShift" id="createShift" ng-options="employee.id as employee.name for employee in vm.userService.employeeArray"
+            ng-model="vm.newShift">
+            </select>
+    </div>
 </div>
+
+</div>
+
+</div>
+
+
+        

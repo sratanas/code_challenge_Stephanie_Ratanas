@@ -1,5 +1,5 @@
 {
-  "name": "prime-solo-base-project",
+  "name": "code-challenge-stephanie-ratanas",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.6.9",
+    "angular-animate": "^1.6.9",
+    "angular-aria": "^1.6.9",
+    "angular-material": "^1.1.7",
+    "angular-messages": "^1.6.9",
     "angular-route": "^1.6.9",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",

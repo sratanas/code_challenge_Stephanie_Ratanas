@@ -24,6 +24,11 @@ body, html {
   margin-top: 10px;
 }
 
+.container {
+  padding:25px;
+
+}
+
 .container p{
   margin-top : 14px;
 }
@@ -77,4 +82,8 @@ li a {
 li a:hover {
   text-decoration: underline;
   color: #eee;
+}
+
+.managerPageColumns{
+  margin: 15px;
 }

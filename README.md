@@ -1,6 +1,6 @@
-# Name of Project
+# Code challenge
 
-One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.
+<!-- One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.
 
 ## Built With
 
@@ -62,4 +62,4 @@ Add additional notes about how to deploy this on a live system
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
+* Hat tip to anyone who's code was used -->

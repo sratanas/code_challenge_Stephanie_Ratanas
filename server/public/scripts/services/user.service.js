@@ -3,6 +3,7 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
   var self = this;
   self.userObject = {};
 
+
   self.getuser = function(){
     console.log('UserService -- getuser');
     $http.get('/api/user').then(function(response) {
@@ -28,4 +29,34 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
       $location.path("/home");
     });
   }
+
+//For getting all employees
+  self.getEmployees = function(){
+    $http({
+      method: 'GET',
+      url: '/api/user/employees'
+    }).then(function (response) {
+      console.log('response', response);
+      self.employeeArray = response.data
+  
+    });
+  };
+
+//For creating a shift
+self.addShift = function (newShift) {
+  $http({
+      method: 'POST',
+      url: '/api/user/newShift',
+      data: newShift
+  }).then(function (response) {
+      console.log('response', response);
+      alert("You added a shift!")
+      newShift.start_time = '';
+      newShift.end_time = '';
+
+  });
+};
+
+
+
 }]);
