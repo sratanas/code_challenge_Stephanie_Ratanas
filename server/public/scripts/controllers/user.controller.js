@@ -13,6 +13,9 @@ myApp.controller('UserController', ['UserService', function(UserService) {
   self.addShift = UserService.addShift;
   self.newShift = UserService.newShift;
 
+  self.getRange = UserService.getRange;
+  self.dateArray = UserService.dateArray;
+
   
 
   UserService.getEmployees();

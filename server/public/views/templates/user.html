@@ -4,60 +4,91 @@
     <h1 id="welcome" class="lead">Welcome, {{vm.userObject.userName}}!</h1>
     <button class="btn btn-default" ng-click="vm.userService.logout()">Log Out</button>
 
-<div class="container">
-    <div layout = "row">
-    <div class = "managerPageColumns">
-    <h3>Employees:</h3>
-    <table>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-        </tr>
-     </thead>  
-     <tbody> 
-        <tr ng-repeat = "employee in vm.userService.employeeArray">
-            <td>{{employee.name}} </td>
-            <td>{{employee.phone}} </td>
-            <td>{{employee.email}}</td>
-        </tr>
-    </tbody> 
-    </table>
+    <div class="container">
+        <div layout="row">
+            <div class="managerPageColumns">
+                <h3>Employees:</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="employee in vm.userService.employeeArray">
+                            <td>{{employee.name}} </td>
+                            <td>{{employee.phone}} </td>
+                            <td>{{employee.email}}</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-    </div>
+            </div>
 
-    <div class = "managerPageColumns">
-            <h3> Create a shift: </h3>
-           <label>Start Day/Time: </label> <input type="datetime-local" ng-model=vm.newShift.start_time>
-           <br>
-            <label>End Day/Time:</label> <input type="datetime-local" ng-model="vm.newShift.end_time">
-            <br><br>
-            <md-button class="md-raised md-primary" ng-click = "vm.addShift(vm.newShift)">Submit</md-button>
-
-    </div>
-
-    <div class = "managerPageColumns">
-            <h3> Assign a shift: </h3>
-            <label>Select an employee</label>
-            <select name="assignShift" id="assignShift" ng-options="employee.id as employee.name for employee in vm.userService.employeeArray"
-            ng-model="vm.assignedShift.employee_id">Select an employee
-            </select>
-            <br>
-            <label>Select a shift</label>
-            <select value = name="assignShift" id="assignShift" ng-options="shift.id as ((shift.start_time | date : 'EEEE, MMMM d, y, h:mm a') + '-' + (shift.end_time | date : 'h:mm a')) for shift in vm.userService.shiftArray"
-                ng-model="vm.assignedShift.shift_id">
-            </select>
+            <div class="managerPageColumns">
+                <h3> Create a shift: </h3>
+                <label>Start Day/Time: </label>
+                <input type="datetime-local" ng-model=vm.newShift.start_time>
                 <br>
-                <md-button class="md-raised md-primary" ng-click = "vm.assignShift(vm.assignedShift)">Submit</md-button>
+                <label>End Day/Time:</label>
+                <input type="datetime-local" ng-model="vm.newShift.end_time">
+                <br>
+                <br>
+                <md-button class="md-raised md-primary" ng-click="vm.addShift(vm.newShift)">Submit</md-button>
+
+            </div>
+
+            <div class="managerPageColumns">
+                <h3> Assign a shift: </h3>
+                <label>Select an employee</label>
+                <select name="assignShift" id="assignShift" ng-options="employee.id as employee.name for employee in vm.userService.employeeArray"
+                    ng-model="vm.assignedShift.employee_id">Select an employee
+                </select>
+                <br>
+                <label>Select a shift</label>
+                <select value=n ame="assignShift" id="assignShift" ng-options="shift.id as ((shift.start_time | date : 'EEEE, MMMM d, y, h:mm a') + '-' + (shift.end_time | date : 'h:mm a')) for shift in vm.userService.shiftArray"
+                    ng-model="vm.assignedShift.shift_id">
+                </select>
+                <br>
+                <md-button class="md-raised md-primary" ng-click="vm.assignShift(vm.assignedShift)">Submit</md-button>
+
+            </div>
+        </div>
+
+    </div>
+
+<div class = "container">
+        <h3>Select schedule range:</h3>
+    <div layout = "row">
+        <br><br>
+            <label>Start date: </label>
+            <input type="date" ng-model="vm.startParam">
+            <label>End Date: </label>
+            <input type="date" ng-model="vm.endParam">
+            <br>
+            <md-button class="md-raised md-primary" ng-click="vm.getRange(vm.startParam, vm.endParam)">Submit</md-button>
 
     </div>
 </div>
 
-</div>
-
-</div>
-
-
-
+<!-- Need get request to get dates  -->
+    <div class = "container">
         
+        <div layout = "row">
+            
+                <div class = "cardRow" layout-wrap layout="row" layout-align="center start" layout-xs="column" layout-s="column">
+                    <md-card id = "scheduleCard" ng-repeat = "date in vm.userService.dateArray track by $index">
+                                <h4>{{date | date : 'EEEE, MMMM d, y'}}</h4>
+                    <!-- <md-card-content id = "apptCardContent" ng-repeat = "date in day.apptArray | orderBy:'dateTimeThing'">
+                        <md-button id = "apptButton"  ng-click = "pc.appointmentForm(date.dateTimeThing.format('LT'),pc.therapistProfileInfo.list[0].email,pc.therapistProfileInfo.list[0])" >{{date.dateTimeThing.format('LT')}}</md-button> 
+                        
+                    </md-card-content>
+                    </md-card> -->
+                </div>
+        </div>
+    </div>
+    {{vm}}
+
+</div>

@@ -58,56 +58,56 @@ router.get('/logout', (req, res) => {
 //For getting employees
 router.get('/employees', function (req, res) {
   console.log('in getEmployees');
-  if(req.isAuthenticated()) {
-   pool.connect(function (errorConnectingToDatabase, client, done) {
-       if (errorConnectingToDatabase) {
-           console.log('error', errorConnectingToDatabase);
-           res.sendStatus(500);
-       } else {
-           client.query(`SELECT * FROM users WHERE users.role='employee'`, function (errorMakingDatabaseQuery, result) {
-               done();
-               if (errorMakingDatabaseQuery) {
-                   console.log('error', errorMakingDatabaseQuery);
-                   res.sendStatus(500);
-               } else {
-                   res.send(result.rows);
-               }
-           });
-       }
-   });
-  } else{
-   // failure best handled on the server. do redirect here.
-   console.log('not logged in');
-   // should probably be res.sendStatus(403) and handled client-side, esp if this is an AJAX request (which is likely with AngularJS)
-   res.send(false);
- }
+  if (req.isAuthenticated()) {
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+      if (errorConnectingToDatabase) {
+        console.log('error', errorConnectingToDatabase);
+        res.sendStatus(500);
+      } else {
+        client.query(`SELECT * FROM users WHERE users.role='employee'`, function (errorMakingDatabaseQuery, result) {
+          done();
+          if (errorMakingDatabaseQuery) {
+            console.log('error', errorMakingDatabaseQuery);
+            res.sendStatus(500);
+          } else {
+            res.send(result.rows);
+          }
+        });
+      }
+    });
+  } else {
+    // failure best handled on the server. do redirect here.
+    console.log('not logged in');
+    // should probably be res.sendStatus(403) and handled client-side, esp if this is an AJAX request (which is likely with AngularJS)
+    res.send(false);
+  }
 
- });
+});
 
 
 //Creating new shift
 router.post('/newShift', function (req, res) {
-    
+
   console.log('in newShift route');
   pool.connect(function (errorConnectingToDatabase, client, done) {
-      if (errorConnectingToDatabase) {
-          console.log('error', errorConnectingToDatabase);
-          res.sendStatus(500);
+    if (errorConnectingToDatabase) {
+      console.log('error', errorConnectingToDatabase);
+      res.sendStatus(500);
 
-      } else {
-          client.query(`INSERT INTO shifts ("manager_id", "start_time", "end_time", "created_at")
+    } else {
+      client.query(`INSERT INTO shifts ("manager_id", "start_time", "end_time", "created_at")
           VALUES ($1, $2, $3, $4);`, [req.user.id, req.body.start_time, req.body.end_time, new Date()],
-              function (errorMakingDatabaseQuery, result) {
-                  done();
-                  if (errorMakingDatabaseQuery) {
-                      console.log('error', errorMakingDatabaseQuery);
-                      res.sendStatus(500);
+        function (errorMakingDatabaseQuery, result) {
+          done();
+          if (errorMakingDatabaseQuery) {
+            console.log('error', errorMakingDatabaseQuery);
+            res.sendStatus(500);
 
-                  } else {
-                      res.sendStatus(201);
-                  }
-              })
-      }
+          } else {
+            res.sendStatus(201);
+          }
+        })
+    }
   })
 });
 
@@ -115,55 +115,55 @@ router.post('/newShift', function (req, res) {
 //For getting all shifts
 router.get('/getShifts', function (req, res) {
   console.log('in getShifts');
-  if(req.isAuthenticated()) {
-   pool.connect(function (errorConnectingToDatabase, client, done) {
-       if (errorConnectingToDatabase) {
-           console.log('error', errorConnectingToDatabase);
-           res.sendStatus(500);
-       } else {
-           client.query(`SELECT * FROM shifts ORDER BY start_time;`, function (errorMakingDatabaseQuery, result) {
-               done();
-               if (errorMakingDatabaseQuery) {
-                   console.log('error', errorMakingDatabaseQuery);
-                   res.sendStatus(500);
-               } else {
-                   res.send(result.rows);
-               }
-           });
-       }
-   });
-  } else{
-   // failure best handled on the server. do redirect here.
-   console.log('not logged in');
-   // should probably be res.sendStatus(403) and handled client-side, esp if this is an AJAX request (which is likely with AngularJS)
-   res.send(false);
- }
+  if (req.isAuthenticated()) {
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+      if (errorConnectingToDatabase) {
+        console.log('error', errorConnectingToDatabase);
+        res.sendStatus(500);
+      } else {
+        client.query(`SELECT * FROM shifts ORDER BY start_time;`, function (errorMakingDatabaseQuery, result) {
+          done();
+          if (errorMakingDatabaseQuery) {
+            console.log('error', errorMakingDatabaseQuery);
+            res.sendStatus(500);
+          } else {
+            res.send(result.rows);
+          }
+        });
+      }
+    });
+  } else {
+    // failure best handled on the server. do redirect here.
+    console.log('not logged in');
+    // should probably be res.sendStatus(403) and handled client-side, esp if this is an AJAX request (which is likely with AngularJS)
+    res.send(false);
+  }
 
- });
+});
 
 
- //Assigning a shift
+//Assigning a shift
 router.post('/assignShift', function (req, res) {
-    
+
   console.log('in assignShift route');
   pool.connect(function (errorConnectingToDatabase, client, done) {
-      if (errorConnectingToDatabase) {
-          console.log('error', errorConnectingToDatabase);
-          res.sendStatus(500);
+    if (errorConnectingToDatabase) {
+      console.log('error', errorConnectingToDatabase);
+      res.sendStatus(500);
 
-      } else {
-          client.query(`INSERT INTO employee_shifts ("employee_id", "shift_id") VALUES ($1, $2);`, [req.body.employee_id, req.body.shift_id],
-              function (errorMakingDatabaseQuery, result) {
-                  done();
-                  if (errorMakingDatabaseQuery) {
-                      console.log('error', errorMakingDatabaseQuery);
-                      res.sendStatus(500);
+    } else {
+      client.query(`INSERT INTO employee_shifts ("employee_id", "shift_id") VALUES ($1, $2);`, [req.body.employee_id, req.body.shift_id],
+        function (errorMakingDatabaseQuery, result) {
+          done();
+          if (errorMakingDatabaseQuery) {
+            console.log('error', errorMakingDatabaseQuery);
+            res.sendStatus(500);
 
-                  } else {
-                      res.sendStatus(201);
-                  }
-              })
-      }
+          } else {
+            res.sendStatus(201);
+          }
+        })
+    }
   })
 });
 
