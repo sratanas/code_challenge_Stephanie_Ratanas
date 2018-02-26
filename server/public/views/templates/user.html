@@ -48,7 +48,7 @@
                 </select>
                 <br>
                 <label>Select a shift</label>
-                <select value=n ame="assignShift" id="assignShift" ng-options="shift.id as ((shift.start_time | date : 'EEEE, MMMM d, y, h:mm a') + '-' + (shift.end_time | date : 'h:mm a')) for shift in vm.userService.shiftArray"
+                <select name="assignShift" id="assignShift" ng-options="shift.id as ((shift.start_time | date : 'EEEE, MMMM d, y, h:mm a') + '-' + (shift.end_time | date : 'h:mm a')) for shift in vm.userService.shiftArray"
                     ng-model="vm.assignedShift.shift_id">
                 </select>
                 <br>
@@ -59,40 +59,88 @@
 
     </div>
 
-<div class = "container">
+    <div class="container">
         <h3>Select schedule range:</h3>
-    <div layout = "row">
-        <br><br>
-            <label>Start date: </label>
+        <div layout="row">
+            <br>
+            <br>
+            <strong>
+                <p>Start date: </p>
+            </strong>
             <input type="date" ng-model="vm.startParam">
-            <label>End Date: </label>
+            <strong>
+                <p>End Date:</p>
+            </strong>
             <input type="date" ng-model="vm.endParam">
             <br>
             <md-button class="md-raised md-primary" ng-click="vm.getRangeWithShifts(vm.startParam, vm.endParam);vm.sortAssignedShifts()">Submit</md-button>
 
-    </div>
-</div>
 
-<!-- Need get request to get dates  -->
-    <div class = "container">
-        
-        <div layout = "row">
-            
-                <div class = "cardRow" layout-wrap layout="row" layout-align="center start" layout-xs="column" layout-s="column">
-                    <md-card id = "scheduleCard" ng-repeat = "date in vm.userService.dateArray track by $index">
-                                <h4>{{date | date : 'EEE MMM d, y'}}</h4>
+            <br>
+
+        </div>
+    </div>
+
+    <!-- Need get request to get dates  -->
+    <div class="container">
+
+        <div layout="row">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Shift</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="shifts in vm.userService.selectedRangeShifts">
+                        <td>
+                            <p ng-hide="shifts.isEditable">{{shifts.name}}</p>
+                            <select ng-show="shifts.isEditable" name="assignShift" id="assignShift" ng-options="employee.id as employee.name for employee in vm.userService.employeeArray"
+                                ng-model="vm.shifts.employee_id">Select an employee
+                            </select>
+                        </td>
+
+                        <td style="text-align:right">
+                            <p ng-hide="shifts.isEditable">{{shifts.start_time | date : 'EEE, MMM d, y, h:mm a' }} -- </p>
+                            <!-- <input type="text" ng-show="shifts.isEditable" ng-model="shifts.start_time"> -->
+
+                        </td>
+
+                        <td>
+                            <p ng-hide="shifts.isEditable">{{shifts.end_time | date : 'h:mm a'}}</p>
+                            <!-- <input type="text" ng-show="shifts.isEditable" ng-model="shifts.end_time"> -->
+                        
+                        </td>
+                
+                        <!-- <td>
+                            <button ng-hide="shifts.isEditable" ng-click="shifts.isEditable = !shifts.isEditable">edit shift</button>
+                            <button ng-show="shifts.isEditable" ng-click="vm.reassignShift(vm.shifts.employee_id)">save changes</button>
+                        </td> -->
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <br>
+
+            <!-- <div class="cardRow" layout-wrap layout="row" layout-align="center start" layout-xs="column" layout-s="column">
+                <md-card id="scheduleCard" ng-repeat="date in vm.userService.dateArray track by $index">
+                    <h4>{{date | date : 'EEE MMM d, y'}}</h4> -->
                     <!-- <md-card-content id = "apptCardContent" ng-repeat = "date in day.apptArray | orderBy:'dateTimeThing'">
                         <md-button id = "apptButton"  ng-click = "pc.appointmentForm(date.dateTimeThing.format('LT'),pc.therapistProfileInfo.list[0].email,pc.therapistProfileInfo.list[0])" >{{date.dateTimeThing.format('LT')}}</md-button> 
                         
                     </md-card-content>
                     </md-card> -->
-                </div>
+            </div>
         </div>
-        <ul ng-repeat = "shifts in vm.userService.selectedRangeShifts">
-            <li>
-                {{shifts.name}} {{(shifts.start_time | date : 'EEEE, MMMM d, y, h:mm a') + '-' + (shifts.end_time | date : 'h:mm a')}}
-            </li>
-        </ul>
+
+
+
+
     </div>
 
 

@@ -167,35 +167,6 @@ router.post('/assignShift', function (req, res) {
   })
 });
 
-router.get('/getAssignedShifts', function (req, res) {
-  if (req.isAuthenticated()) {
-    pool.connect(function (errorConnectingToDatabase, client, done) {
-      if (errorConnectingToDatabase) {
-        console.log('error', errorConnectingToDatabase);
-        res.sendStatus(500);
-      } else {
-        client.query(`SELECT users.name, shifts.manager_id, shifts.start_time, shifts.end_time
-        FROM employee_shifts
-        JOIN shifts ON shifts.id = employee_shifts.shift_id
-        JOIN users ON users.id = employee_shifts.employee_id`, function (errorMakingDatabaseQuery, result) {
-          done();
-          if (errorMakingDatabaseQuery) {
-            console.log('error', errorMakingDatabaseQuery);
-            res.sendStatus(500);
-          } else {
-            res.send(result.rows);
-          }
-        });
-      }
-    });
-  } else {
-    // failure best handled on the server. do redirect here.
-    console.log('not logged in');
-    // should probably be res.sendStatus(403) and handled client-side, esp if this is an AJAX request (which is likely with AngularJS)
-    res.send(false);
-  }
-
-});
 
 //For getting all shifts
 router.get('/getRangeWithShifts', function (req, res) {
@@ -208,7 +179,7 @@ router.get('/getRangeWithShifts', function (req, res) {
         console.log('error', errorConnectingToDatabase);
         res.sendStatus(500);
       } else {
-        client.query(`SELECT users.name, shifts.manager_id, shifts.start_time, shifts.end_time
+        client.query(`SELECT shifts.employee_id, shifts.id, users.name, shifts.manager_id, shifts.start_time, shifts.end_time
         FROM shifts
         JOIN employee_shifts ON shifts.id = employee_shifts.shift_id
         JOIN users ON users.id = employee_shifts.employee_id
@@ -234,6 +205,68 @@ router.get('/getRangeWithShifts', function (req, res) {
 });
 
 
+router.put('/editShift', function (req, res) {
+  console.log('req.body.id is', req.body.id);
+  
+  if(req.isAuthenticated()) {  
+  pool.connect(function (errorConnectingToDatabase, client, done) {
+      if (errorConnectingToDatabase) {
+          console.log('error', errorConnectingToDatabase);
+          res.sendStatus(500);
+
+      } else {
+          client.query(`UPDATE shifts set start_time = $1, end_time = $2
+          WHERE id = $1;`,[req.body.start_time, req.body.end_time, req.body.id],
+              function (errorMakingDatabaseQuery, result) {
+                  done();
+                  if (errorMakingDatabaseQuery) {
+                      console.log('error', errorMakingDatabaseQuery);
+                      res.sendStatus(500);
+
+                  } else {
+                      res.sendStatus(200);
+                  }
+              })
+      }
+  })
+} else {
+  // failure best handled on the server. do redirect here.
+  console.log('not logged in');
+  // should probably be res.sendStatus(403) and handled client-side, esp if this is an AJAX request (which is likely with AngularJS)
+  res.send(false);
+}});
+
+
+router.put('/reassignShift', function (req, res) {
+  console.log('req.body.id is', req.body.id);
+  
+  if(req.isAuthenticated()) {  
+  pool.connect(function (errorConnectingToDatabase, client, done) {
+      if (errorConnectingToDatabase) {
+          console.log('error', errorConnectingToDatabase);
+          res.sendStatus(500);
+
+      } else {
+          client.query(`UPDATE employee_shifts set employee_id = $1
+          WHERE shift_id = $2;`,[req.body.employee_id, req.body.id],
+              function (errorMakingDatabaseQuery, result) {
+                  done();
+                  if (errorMakingDatabaseQuery) {
+                      console.log('error', errorMakingDatabaseQuery);
+                      res.sendStatus(500);
+
+                  } else {
+                      res.sendStatus(200);
+                  }
+              })
+      }
+  })
+} else {
+  // failure best handled on the server. do redirect here.
+  console.log('not logged in');
+  // should probably be res.sendStatus(403) and handled client-side, esp if this is an AJAX request (which is likely with AngularJS)
+  res.send(false);
+}});
 
 module.exports = router;
 

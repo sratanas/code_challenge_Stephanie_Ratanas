@@ -90,8 +90,27 @@ li a:hover {
 }
 
 table {
-  border-width: 1px;
-  border-style: solid;
+  /* border-width: 1px;
+  border-style: solid; */
+  border-collapse: collapse;
+}
+table tr{
+  padding: 1px 3px 1px 3px;
+
+}
+
+table td{
+  /* border-width: 1px;
+  border-style: solid; */
+  border-bottom: 1px solid;
+}
+
+table th{
+  background-color: #51af05;
+}
+
+table tr:nth-child(even){
+  background-color: #cac8c8;
 }
 
 #scheduleCard {

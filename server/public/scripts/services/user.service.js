@@ -84,21 +84,6 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
 
 
 
-  self.getRange = function (startParam, endParam){
-    var newend = endParam.setDate(endParam.getDate()+1);
-    var end = new Date(newend);
-    self.dateArray = []
-      while(startParam < end){
-        var newDate = startParam.setDate(startParam.getDate() + 1);
-        startParam = new Date(newDate);
-        console.log(new Date(startParam));
-        self.dateArray.push(new Date(startParam))
-        console.log('dateArray', self.dateArray); 
-      } 
-
-  }
-
-//Experiment to add shift array
   self.getRangeWithShifts = function (endDate, startDate){
     $http({
       method: 'GET',
@@ -116,37 +101,34 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
   }
 
 
-  self.getAssignedShifts = function () {
-    $http({
-      method: 'GET',
-      url: '/api/user/getAssignedShifts',
-    }).then(function (response) {
-      self.assignedShifts = response.data;
-    })
-  }
 
-  //WORKING ON THIS TO COMPARE DATES AND PUSH INTO CARDS
-  // self.sortAssignedShifts = function () {
-  //   console.log('sort Assigned Shifts Run');
-  //   console.log('self.assignedShfits', self.assignedShifts);
+
+  self.editShift = function(shiftToEdit){
+    console.log('edit shift clicked');
     
-  //   self.byDateArray = []
-  //   for (var i = 0; i < self.assignedShifts.length; i++) {
-  //     shift = self.assignedShifts[i];
-  //     console.log(moment(shift).format("MMM Do YY"));
-      
-  //     for (var j = 0; j < self.dateArray.length; j++) {
-  //       dateRangeDate = self.dateArray[j];
-  //     console.log(moment(dateRangeDate).format("MMM Do YY"));
+    $http({
+        method: 'PUT',
+        url:'/api/user/editShift',
+        data: shiftToEdit
+    }).then(function(response){
+        console.log('response', response);
+        alert('Changes saved!')
+                
+    });
+};
 
+self.reassignShift = function(nameToUpdate){
+  console.log('reassign shift ');
 
-  //       if (moment(shift).format("MMM Do YY") === moment(dateRangeDate).format("MMM Do YY")) {
-  //         self.byDateArray.push(shift)
-  //         console.log('byDateArray', self.byDateArray);
-          
-  //       }
-  //     }
-  //   };
-  // }
+  $http({
+      method: 'PUT',
+      url:'/api/user/reassignShift',
+      data: nameToUpdate
+  }).then(function(response){
+      console.log('response', response);
+      alert('Changes saved!')
+              
+  });
+};
 
 }]);

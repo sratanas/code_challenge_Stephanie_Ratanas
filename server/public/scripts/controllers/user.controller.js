@@ -18,15 +18,17 @@ myApp.controller('UserController', ['UserService', function(UserService) {
 
   self.getAssignedShifts = UserService.getAssignedShifts
   self.assignedShifts = UserService.assignedShifts;
-  self.sortAssignedShifts = UserService.sortAssignedShifts;
-  self.byDateArray = UserService.byDateArray;
 
   self.getRangeWithShifts = UserService.getRangeWithShifts;
-  self.selectedRangeShifts = UserService.selectedRangeShifts
+  self.selectedRangeShifts = UserService.selectedRangeShifts;
+
+  self.editShift = UserService.editShift;
+  self.reassignShift = UserService.reassignShift;
   
 
   UserService.getEmployees();
-  UserService.getShifts()
-  UserService.getAssignedShifts();
+  UserService.getShifts();
+  // UserService.getAssignedShifts();
+ 
 
 }]);
