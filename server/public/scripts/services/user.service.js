@@ -53,10 +53,32 @@ self.addShift = function (newShift) {
       alert("You added a shift!")
       newShift.start_time = '';
       newShift.end_time = '';
+      self.getShifts();
 
   });
 };
 
+self.getShifts = function (){
+  $http({
+    method: 'GET',
+    url: '/api/user/getShifts',
+  }).then(function(response){
+    self.shiftArray = response.data;
+    // moment([...self.shiftArray]).format('')
+    self.shiftArray.start_time
+  })
+}
 
+self.assignShift = function (assignedShift){
+  $http({
+    method: 'POST',
+    url: 'api/user/assignShift',
+    data: assignedShift
+  }).then(function(response){
+  alert('You assigned a shift!')
+    assignedShift.employee_id = '';
+    assignedShift.shift_id = '';
+  })
+}
 
 }]);

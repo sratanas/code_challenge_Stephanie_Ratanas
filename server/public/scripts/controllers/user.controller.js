@@ -7,9 +7,15 @@ myApp.controller('UserController', ['UserService', function(UserService) {
   self.getEmployees = UserService.getEmployees;
   self.employeeArray = UserService.employeeArray;
 
+  self.getShifts = UserService.getShifts;
+  self.assignShift = UserService.assignShift;
+
   self.addShift = UserService.addShift;
   self.newShift = UserService.newShift;
 
+  
+
   UserService.getEmployees();
+  UserService.getShifts()
 
 }]);

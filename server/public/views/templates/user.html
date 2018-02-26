@@ -7,10 +7,24 @@
 <div class="container">
     <div layout = "row">
     <div class = "managerPageColumns">
-            <h3>Employees:</h3>
-    <ul ng-repeat = "employee in vm.userService.employeeArray">
-        <li> {{employee.name}} {{employee.phone}} {{employee.email}} </li>
-    </ul>
+    <h3>Employees:</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+        </tr>
+     </thead>  
+     <tbody> 
+        <tr ng-repeat = "employee in vm.userService.employeeArray">
+            <td>{{employee.name}} </td>
+            <td>{{employee.phone}} </td>
+            <td>{{employee.email}}</td>
+        </tr>
+    </tbody> 
+    </table>
+
     </div>
 
     <div class = "managerPageColumns">
@@ -25,15 +39,25 @@
 
     <div class = "managerPageColumns">
             <h3> Assign a shift: </h3>
-            <select name="createShift" id="createShift" ng-options="employee.id as employee.name for employee in vm.userService.employeeArray"
-            ng-model="vm.newShift">
+            <label>Select an employee</label>
+            <select name="assignShift" id="assignShift" ng-options="employee.id as employee.name for employee in vm.userService.employeeArray"
+            ng-model="vm.assignedShift.employee_id">Select an employee
             </select>
+            <br>
+            <label>Select a shift</label>
+            <select value = name="assignShift" id="assignShift" ng-options="shift.id as ((shift.start_time | date : 'EEEE, MMMM d, y, h:mm a') + '-' + (shift.end_time | date : 'h:mm a')) for shift in vm.userService.shiftArray"
+                ng-model="vm.assignedShift.shift_id">
+            </select>
+                <br>
+                <md-button class="md-raised md-primary" ng-click = "vm.assignShift(vm.assignedShift)">Submit</md-button>
+
     </div>
 </div>
 
 </div>
 
 </div>
+
 
 
         

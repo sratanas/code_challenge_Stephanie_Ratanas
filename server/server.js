@@ -3,7 +3,9 @@ const app = express();
 const bodyParser = require('body-parser');
 
 const passport = require('./strategies/sql.localstrategy');
-const sessionConfig = require('./modules/session-middleware');
+var sessionConfig = require('./modules/session.config');
+var moment = require('moment');
+
 
 // Route includes
 const userRouter = require('./routes/user.router');
