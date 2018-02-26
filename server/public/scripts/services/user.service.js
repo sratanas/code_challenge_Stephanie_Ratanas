@@ -2,7 +2,8 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
   console.log('UserService Loaded');
   var self = this;
   self.userObject = {};
-  self.newArray = []
+  self.employeeShiftArray =[]
+  self.selectedRangeShifts = [];
 
   self.getuser = function () {
     console.log('UserService -- getuser');
@@ -92,10 +93,60 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
         startParam = new Date(newDate);
         console.log(new Date(startParam));
         self.dateArray.push(new Date(startParam))
-        console.log('dateArray', self.dateArray);
-        
+        console.log('dateArray', self.dateArray); 
       } 
 
   }
+
+//Experiment to add shift array
+  self.getRangeWithShifts = function (endDate, startDate){
+    $http({
+      method: 'GET',
+      url: '/api/user/getRangeWithShifts',
+      params: {
+        endDate,
+        startDate
+      }
+    }).then(function (response) {
+      console.log('response from getRange with Shifts', response);
+      
+      self.selectedRangeShifts = response.data;
+    })
+
+  }
+
+
+  self.getAssignedShifts = function () {
+    $http({
+      method: 'GET',
+      url: '/api/user/getAssignedShifts',
+    }).then(function (response) {
+      self.assignedShifts = response.data;
+    })
+  }
+
+  //WORKING ON THIS TO COMPARE DATES AND PUSH INTO CARDS
+  // self.sortAssignedShifts = function () {
+  //   console.log('sort Assigned Shifts Run');
+  //   console.log('self.assignedShfits', self.assignedShifts);
+    
+  //   self.byDateArray = []
+  //   for (var i = 0; i < self.assignedShifts.length; i++) {
+  //     shift = self.assignedShifts[i];
+  //     console.log(moment(shift).format("MMM Do YY"));
+      
+  //     for (var j = 0; j < self.dateArray.length; j++) {
+  //       dateRangeDate = self.dateArray[j];
+  //     console.log(moment(dateRangeDate).format("MMM Do YY"));
+
+
+  //       if (moment(shift).format("MMM Do YY") === moment(dateRangeDate).format("MMM Do YY")) {
+  //         self.byDateArray.push(shift)
+  //         console.log('byDateArray', self.byDateArray);
+          
+  //       }
+  //     }
+  //   };
+  // }
 
 }]);

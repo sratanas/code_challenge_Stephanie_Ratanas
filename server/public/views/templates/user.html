@@ -68,7 +68,7 @@
             <label>End Date: </label>
             <input type="date" ng-model="vm.endParam">
             <br>
-            <md-button class="md-raised md-primary" ng-click="vm.getRange(vm.startParam, vm.endParam)">Submit</md-button>
+            <md-button class="md-raised md-primary" ng-click="vm.getRangeWithShifts(vm.startParam, vm.endParam);vm.sortAssignedShifts()">Submit</md-button>
 
     </div>
 </div>
@@ -80,7 +80,7 @@
             
                 <div class = "cardRow" layout-wrap layout="row" layout-align="center start" layout-xs="column" layout-s="column">
                     <md-card id = "scheduleCard" ng-repeat = "date in vm.userService.dateArray track by $index">
-                                <h4>{{date | date : 'EEEE, MMMM d, y'}}</h4>
+                                <h4>{{date | date : 'EEE MMM d, y'}}</h4>
                     <!-- <md-card-content id = "apptCardContent" ng-repeat = "date in day.apptArray | orderBy:'dateTimeThing'">
                         <md-button id = "apptButton"  ng-click = "pc.appointmentForm(date.dateTimeThing.format('LT'),pc.therapistProfileInfo.list[0].email,pc.therapistProfileInfo.list[0])" >{{date.dateTimeThing.format('LT')}}</md-button> 
                         
@@ -88,7 +88,12 @@
                     </md-card> -->
                 </div>
         </div>
+        <ul ng-repeat = "shifts in vm.userService.selectedRangeShifts">
+            <li>
+                {{shifts.name}} {{(shifts.start_time | date : 'EEEE, MMMM d, y, h:mm a') + '-' + (shifts.end_time | date : 'h:mm a')}}
+            </li>
+        </ul>
     </div>
-    {{vm}}
+
 
 </div>

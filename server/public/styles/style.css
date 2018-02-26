@@ -93,3 +93,7 @@ table {
   border-width: 1px;
   border-style: solid;
 }
+
+#scheduleCard {
+  padding: 5px;
+}
