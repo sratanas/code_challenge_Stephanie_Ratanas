@@ -65,13 +65,6 @@ VALUES ('Mary', 'Mary Smith', 'employee', 'mary@mary.com', 1234567890, current_t
 
 ```
 
-## Screen Shot
-
-Include one or two screen shots of your project here (optional). Remove if unused.
-
-## Documentation
-
-Link to a read-only version of your scope document or other relevant documentation here (optional). Remove if unused.
 
 ### Completed Features
 
