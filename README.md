@@ -1,5 +1,6 @@
 # When I Work Code challenge - Stephanie Ratanas
 
+[LIVE DEMO](https://lit-gorge-39930.herokuapp.com)
 
 ## Built With
 
@@ -11,7 +12,7 @@
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. The app is also live at the link above.
 
 ### Prerequisites
 
