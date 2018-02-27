@@ -1,6 +1,5 @@
 # Code challenge
 
-<!-- One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.
 
 ## Built With
 
@@ -15,10 +14,12 @@ These instructions will get you a copy of the project up and running on your loc
 Link to software that is required to install the app (e.g. node).
 
 - [Node.js](https://nodejs.org/en/)
-- List other prerequisites here
+- Way to run PostgreSQL locally.
 
 
 ### Installing
+
+```npm install```
 
 Steps to get the development environment running.
 
@@ -42,6 +43,7 @@ Link to a read-only version of your scope document or other relevant documentati
 
 High level list of items completed.
 
+View as employee
 - [x] Feature a
 - [x] Feature b
 
@@ -59,7 +61,3 @@ Add additional notes about how to deploy this on a live system
 
 * Name of author(s)
 
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used -->

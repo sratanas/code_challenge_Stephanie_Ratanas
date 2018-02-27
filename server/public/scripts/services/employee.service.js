@@ -27,14 +27,22 @@ myApp.service('EmployeeService', ['$http', '$location', function ($http, $locati
             var difference = Math.abs(date1.getTime() - date2.getTime());
 
             self.hourDifference = difference  / 1000 / 3600;
+            // var hours = self.hourDifference[]
             var hours = self.hoursArray.push(self.hourDifference)
-            console.log('hours reduced', hours);
+            function array(arr){
+                var sum = 0;
+                for (var i = 0; i< arr.length; i++){
+                 self.sumArray = sum += arr[i];
+                }
+                console.log(self.sumArray);
+              }
+              array(self.hoursArray);
             
             console.log('hoursArray', self.hoursArray);
 
         }
 
-
+            
         })
         
       }

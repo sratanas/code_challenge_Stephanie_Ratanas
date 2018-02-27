@@ -31,12 +31,11 @@
                             </ul>
 
                         </td>
-                        <!-- <button ng-hide="shifts.isShown" ng-click = "ec.getCoworkers(shifts.id);shifts.isShown = !shifts.isShown">see co-workers</button>
-                                            <p ng-show="shifts.isShown">{{ec.EmployeeService.coworkersArray}}</p> -->
-
                     </tr>
                 </tbody>
             </table>
+
+        <p><strong>Hours scheduled: </strong>{{ec.EmployeeService.sumArray}}</p>
         </div>
         <div class = "employeePageDivs">
             <h3>Manager Info:</h3>

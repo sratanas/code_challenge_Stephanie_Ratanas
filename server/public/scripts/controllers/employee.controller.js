@@ -9,9 +9,9 @@ myApp.controller('EmployeeController', ['UserService', 'EmployeeService', '$rout
     self.getManagers = EmployeeService.getManagers;
     self.assignedShiftArray= EmployeeService.assignedShiftArray;
 
+
     EmployeeService.getManagers();
     EmployeeService.getAssignedShifts($routeParams);
   
-
   }]);
   
