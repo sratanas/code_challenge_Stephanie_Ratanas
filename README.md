@@ -2,6 +2,10 @@
 
 [LIVE DEMO](https://lit-gorge-39930.herokuapp.com)
 
+ - For testing purposes use login:
+  username: Sarah_Manager
+  password: test
+
 ## Built With
 
 * AngularJS
