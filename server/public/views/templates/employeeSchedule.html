@@ -26,9 +26,11 @@
                             {{shifts.manager_id}}
                         </td>
                         <td ng-init="ec.getCoworkers(shifts.id)">
+
                             <ul ng-repeat="name in ec.EmployeeService.coworkersArray">
-                                <li> {{name.name}} </li>
+                                    <li> {{(name.shift_id == shifts.id ) ? name.name : '' }}</li>
                             </ul>
+
 
                         </td>
                     </tr>
@@ -63,5 +65,3 @@
     </div>
 </div>
 </div>
-
-{{ec}}

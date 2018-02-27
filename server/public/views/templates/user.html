@@ -82,7 +82,6 @@
         </div>
     </div>
 
-    <!-- Need get request to get dates  -->
     <div class="container">
 
         <div layout="row">
@@ -107,20 +106,14 @@
 
                         <td style="text-align:right">
                             <p ng-hide="shifts.isEditable">{{shifts.start_time | date : 'EEE, MMM d, y, h:mm a' }} -- </p>
-                            <!-- <input type="text" ng-show="shifts.isEditable" ng-model="shifts.start_time"> -->
 
                         </td>
 
                         <td>
                             <p ng-hide="shifts.isEditable">{{shifts.end_time | date : 'h:mm a'}}</p>
-                            <!-- <input type="text" ng-show="shifts.isEditable" ng-model="shifts.end_time"> -->
                         
                         </td>
-                
-                        <!-- <td>
-                            <button ng-hide="shifts.isEditable" ng-click="shifts.isEditable = !shifts.isEditable">edit shift</button>
-                            <button ng-show="shifts.isEditable" ng-click="vm.reassignShift(vm.shifts.employee_id)">save changes</button>
-                        </td> -->
+ 
                     </tr>
                 </tbody>
             </table>
@@ -128,21 +121,8 @@
             <br>
             <br>
 
-            <!-- <div class="cardRow" layout-wrap layout="row" layout-align="center start" layout-xs="column" layout-s="column">
-                <md-card id="scheduleCard" ng-repeat="date in vm.userService.dateArray track by $index">
-                    <h4>{{date | date : 'EEE MMM d, y'}}</h4> -->
-                    <!-- <md-card-content id = "apptCardContent" ng-repeat = "date in day.apptArray | orderBy:'dateTimeThing'">
-                        <md-button id = "apptButton"  ng-click = "pc.appointmentForm(date.dateTimeThing.format('LT'),pc.therapistProfileInfo.list[0].email,pc.therapistProfileInfo.list[0])" >{{date.dateTimeThing.format('LT')}}</md-button> 
-                        
-                    </md-card-content>
-                    </md-card> -->
+ 
             </div>
         </div>
-
-
-
-
     </div>
-
-
 </div>

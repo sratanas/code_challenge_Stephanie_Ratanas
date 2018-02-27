@@ -50,31 +50,21 @@ myApp.service('EmployeeService', ['$http', '$location', function ($http, $locati
 
       
     self.getCoworkers = function (shiftId) {
+
         $http({
           method: 'GET',
           url: '/api/employee/getCoworkers',
           params: {shiftId}
         }).then(function (response) {
             console.log('response from getCoworkers', response);
-            
           self.coworkersArray = response.data;
+          
 
 
         })
       }
 
-    // self.calculateHours = function(){
-        
-    //     for (var i = 0; i < self.assignedShiftArray.length; i++){
-    //         var diff = self.assignedShiftArray.end_date.valueOf() - elf.assignedShiftArray.start_date.valueOf();
-    //         var diffInHours = diff/1000/60/60;
-    //         console.log('diffInHours', diffInHours);
-            
-    //     }
 
-
-    // }
-    // self.calculateHours();
 
   }]);
   

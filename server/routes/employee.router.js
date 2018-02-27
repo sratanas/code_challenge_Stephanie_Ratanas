@@ -5,9 +5,7 @@ const pool = require('../modules/pool.js');
 const router = express.Router();
 
 router.get('/getManagers', function (req, res) {
-    
-    console.log('in getAssignedShifts');
-      pool.connect(function (errorConnectingToDatabase, client, done) {
+          pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {
           console.log('error', errorConnectingToDatabase);
           res.sendStatus(500);
@@ -27,9 +25,6 @@ router.get('/getManagers', function (req, res) {
   });
 
 router.get('/getAssignedShifts', function (req, res) {
-    console.log('in get assigned shifts req.query is', req.query);
-    
-    console.log('in getAssignedShifts');
       pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {
           console.log('error', errorConnectingToDatabase);
@@ -53,15 +48,13 @@ router.get('/getAssignedShifts', function (req, res) {
   
   });
 
-  router.get('/getCoworkers', function (req, res) {
-    console.log('in get coworkers req.query is', req.query);
-    
+  router.get('/getCoworkers', function (req, res) {    
       pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {
           console.log('error', errorConnectingToDatabase);
           res.sendStatus(500);
         } else {
-          client.query(`SELECT users.name
+          client.query(`SELECT users.name, employee_shifts.shift_id
           FROM users
           JOIN employee_shifts ON users.id = employee_shifts.employee_id
           WHERE employee_shifts.shift_id = $1;`,[req.query.shiftId], function (errorMakingDatabaseQuery, result) {
