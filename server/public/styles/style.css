@@ -116,3 +116,7 @@ table tr:nth-child(even){
 #scheduleCard {
   padding: 5px;
 }
+
+.employeePageDivs {
+  margin:20px;
+}

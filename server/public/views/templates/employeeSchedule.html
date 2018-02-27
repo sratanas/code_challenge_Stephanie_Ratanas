@@ -1,0 +1,68 @@
+<div ng-include="'views/partials/nav.html'"></div>
+
+<div class="container">
+    <div layout="row">
+        <div class = "employeePageDivs">
+            <h3>Shifts for {{ec.EmployeeService.assignedShiftArray[0].name}}</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Shift</th>
+                        <th></th>
+                        <th>Manager ID</th>
+                        <th>Co-workers</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="shifts in ec.EmployeeService.assignedShiftArray">
+                        <td style="text-align:right">
+                            {{shifts.start_time | date : 'EEE, MMM d, y, h:mm a' }} --
+                        </td>
+                        <td>
+                            {{shifts.end_time | date : 'h:mm a'}}
+
+                        </td>
+                        <td style="text-align:center">
+                            {{shifts.manager_id}}
+                        </td>
+                        <td ng-init="ec.getCoworkers(shifts.id)">
+                            <ul ng-repeat="name in ec.EmployeeService.coworkersArray">
+                                <li> {{name.name}} </li>
+                            </ul>
+
+                        </td>
+                        <!-- <button ng-hide="shifts.isShown" ng-click = "ec.getCoworkers(shifts.id);shifts.isShown = !shifts.isShown">see co-workers</button>
+                                            <p ng-show="shifts.isShown">{{ec.EmployeeService.coworkersArray}}</p> -->
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class = "employeePageDivs">
+            <h3>Manager Info:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="manager in ec.EmployeeService.managerArray">
+                        <td>{{manager.id}}</td>
+                        <td>{{manager.name}}</td>
+                        <td>{{manager.phone}}</td>
+                        <td>{{manager.email}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</div>
+</div>
+
+{{ec}}

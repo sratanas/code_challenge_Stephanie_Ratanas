@@ -15,6 +15,10 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
       templateUrl: '/views/templates/register.html',
       controller: 'LoginController as vm'
     })
+    .when('/employeeSchedule/:id', {
+      templateUrl: '/views/templates/employeeSchedule.html',
+      controller: 'EmployeeController as ec'
+    })
     .when('/user', {
       templateUrl: '/views/templates/user.html',
       controller: 'UserController as vm',

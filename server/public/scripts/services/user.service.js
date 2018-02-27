@@ -84,7 +84,7 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
 
 
 
-  self.getRangeWithShifts = function (endDate, startDate){
+self.getRangeWithShifts = function (endDate, startDate){
     $http({
       method: 'GET',
       url: '/api/user/getRangeWithShifts',
@@ -94,12 +94,10 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
       }
     }).then(function (response) {
       console.log('response from getRange with Shifts', response);
-      
       self.selectedRangeShifts = response.data;
     })
 
   }
-
 
 
 

@@ -8,6 +8,7 @@
         <div layout="row">
             <div class="managerPageColumns">
                 <h3>Employees:</h3>
+                <p>Click employee name for employee view page.</p>
                 <table>
                     <thead>
                         <tr>
@@ -18,8 +19,8 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="employee in vm.userService.employeeArray">
-                            <td>{{employee.name}} </td>
-                            <td>{{employee.phone}} </td>
+                            <td><a href = "#!./employeeSchedule/{{employee.id}}">{{employee.name}}</a></td>
+                            <td>{{employee.phone}}</td>
                             <td>{{employee.email}}</td>
                         </tr>
                     </tbody>
@@ -60,7 +61,7 @@
     </div>
 
     <div class="container">
-        <h3>Select schedule range:</h3>
+        <h3>Select schedule range to view shifts:</h3>
         <div layout="row">
             <br>
             <br>
